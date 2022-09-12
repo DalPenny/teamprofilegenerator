@@ -7,7 +7,7 @@ test('creation of the Manager object', () => {
 
     expect(manager.name).toEqual(expect.any(String));
     expect(manager.role).toEqual(expect.any(String));
-    expect(manager.Officenumber).toEqual(expect.any(Number));
+    expect(manager.officeNumber).toEqual(expect.any(Number));
 });
 
 // Test Manager Name
@@ -28,5 +28,5 @@ test("validate manager role", () => {
 test("validate manager Officenumber", () => {
     const manager = new Manager('Max', 1, 'max@sampleemail.com', 'Manager', 2);
 
-    expect(manager.Officenumber).toEqual(expect.any(Number));
+    expect(manager.officeNumber).toEqual(expect.any(Number));
 });
