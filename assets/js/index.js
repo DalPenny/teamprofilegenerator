@@ -11,6 +11,9 @@ function init() {
     addEmployee();
 };
 
+let addlQuestn = "";
+let addlInfotxt = "";
+
 // Create an array of questions for user input 
 function addEmployee(){
     inquirer.prompt([
@@ -71,7 +74,6 @@ function addEmployee(){
     ])
 
     .then(function({name, id, email, role}) {
-        var addlQuestn = "";
         if (role === "Manager") {
             addlQuestn = "Office number";
         } else if (role === "Engineer") {
@@ -81,7 +83,7 @@ function addEmployee(){
         } 
         inquirer.prompt([{
                 type: 'input',
-                name: 'addlInput',       // To get additional input related to the role
+                name: 'addlInfo',       // To get additional input related to the role
                 message: `Enter ${role}'s ${addlQuestn}`,
                 
             },
@@ -97,19 +99,21 @@ function addEmployee(){
         ])
 
         // Write to html file 
-        .then(function({addlInput, addTeamMembers}) {
+        .then(function({addlInfo, addTeamMembers}) {
             let newEmployee;
+            addlInfotxt = addlInfo;
+            // console.log(`display ${addlInfotxt}`); //just for testing addlInfo value
             if (role === "Manager") {
-                newEmployee = new Manager(name, id, email, addlInput);
+                newEmployee = new Manager(name, id, email);
             } else if (role === "Engineer") {
-                newEmployee = new Engineer(name, id, email, addlInput);
+                newEmployee = new Engineer(name, id, email);
             } else if (role === "Intern") {
-                newEmployee = new Intern(name, id, email, addlInput);
+                newEmployee = new Intern(name, id, email);
             } else  {console.log("Error: invalid role") ;
                     return false;
 
             }
-
+            
             addHtml(newEmployee)
            
                 if (addTeamMembers === "yes") {
@@ -117,25 +121,83 @@ function addEmployee(){
                 } else {
                     endHtml();
                 }
-            
-            
         });
     });
 };
 
 //build html header
 function buildHtml(){
-    console.log ("build Html header");
+    const html = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.2/dist/flowbite.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/fb81218133.js" crossorigin="anonymous"></script>
+    <title>Team Profile Generator</title>
+    </head>
+<!-- Header -->
+    <body>
+        <header>
+            <div class="header-container p-5 text-center text-[25px] bg-green-100 box-border border-8 border-pink-200"><b>Team Profile</b>
+            </div>
+        </header>
+    <!-- Main container -->
+    <main>
+        <div class="main-container flex space-x-6 justify-between">`;
+
+     fs.writeFile("../../index.html", html, function(err) {
+        if (err) {
+                console.log(err);
+                 }
+    });
+    console.log ("Building the Html header");
 }
 
 //append to html
-function addHtml(){
-    console.log ("appending to Html:");
+function addHtml(newEmployee){
+    const name = newEmployee.getName();
+    const id = newEmployee.getId();
+    const email = newEmployee.getEmail();
+    const role = newEmployee.getRole();
+
+    bodydata = ` 
+            <div class="card mx-auto bg-blue mb-3 flex-row box-border border-8 border-violet-300" style="width: 18rem">
+             <h5 class="card-header bg-teal-200">${name}<br/>${role}</h5>
+             <ul class="list-group list-group-flush flex-row">
+                <li class="list-group-item">ID: ${id}</li>
+                <li class="list-group-item">Email Address: <a href= "mailto:${email}"> ${email}</a></li>
+                <li class="list-group-item">${addlQuestn}: ${addlInfotxt}</li>
+             </ul>
+            </div>`;
+
+    fs.appendFile("../../index.html", bodydata, function(err) {
+        if (err) {
+                console.log(err);
+                 }
+    });
+
+    console.log ("Appending to Html:");
 };
 
 //write end of html
 function endHtml(){
-    console.log ("end writing Html");
+    const html = ` 
+        </div>
+    </body>
+    </html>`;
+
+    fs.appendFile("../../index.html", html, function (err) {
+        if (err) {
+            console.log(err);
+        };
+    });
+
+    console.log ("End writing Html");
 };
 
 init();
