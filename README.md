@@ -31,7 +31,7 @@
   npm run test to run the test
   
   ## Video
-  (https://drive.google.com/file/d/1Zs6KpUyxh80STF0v7dbYejGULP7Wllel/view)
+  https://drive.google.com/file/d/1Zs6KpUyxh80STF0v7dbYejGULP7Wllel/view
   
   ## Screenshot
   
