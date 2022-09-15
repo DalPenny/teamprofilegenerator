@@ -33,7 +33,7 @@
   ## Video
   https://drive.google.com/file/d/1Zs6KpUyxh80STF0v7dbYejGULP7Wllel/view 
   
-  ##Screenshot
+  ## Screenshot
   https://github.com/DalPenny/teamprofilegenerator/blob/main/assets/images/screenshot.png
   
   ## Github
