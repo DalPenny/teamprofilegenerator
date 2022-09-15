@@ -30,6 +30,12 @@
   ## Tests
   npm run test to run the test
   
+  ## Video
+  https://drive.google.com/file/d/1Zs6KpUyxh80STF0v7dbYejGULP7Wllel/view 
+  
+  ##Screenshot
+  https://github.com/DalPenny/teamprofilegenerator/blob/main/assets/images/screenshot.png
+  
   ## Github
   Have questions about this project?  
   GitHub: https://github.com/DalPenny  
